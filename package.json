@@ -1,0 +1,34 @@
+{
+  "name": "island-shine",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Marketing website for Island Shine Property Services — window cleaning, pressure washing & soft washing in Victoria, BC.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write .",
+    "placeholders": "node scripts/generate-placeholders.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^0.525.0",
+    "next": "^15.3.4",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.29.0",
+    "eslint-config-next": "^15.3.4",
+    "postcss": "^8.5.6",
+    "prettier": "^3.6.0",
+    "prettier-plugin-tailwindcss": "^0.6.13",
+    "sharp": "^0.34.2",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.3"
+  }
+}
