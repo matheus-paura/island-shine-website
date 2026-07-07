@@ -32,9 +32,13 @@ function validEmail(value: string): boolean {
  * submissions. Spam protection is a honeypot + timing check (no CAPTCHA).
  * POSTs JSON to NEXT_PUBLIC_FORM_ENDPOINT; success fires `generate_lead`.
  */
+const WINDOW_CLEANING = "Window Cleaning";
+
 export function QuoteForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
+  const [selectedService, setSelectedService] = useState("");
+  const showWindowFields = selectedService === WINDOW_CLEANING;
   const formStartedRef = useRef(false);
   const mountedAtRef = useRef<number>(Date.now());
   const formRef = useRef<HTMLFormElement>(null);
@@ -225,6 +229,7 @@ export function QuoteForm() {
             aria-invalid={Boolean(errors.service)}
             aria-describedby={errors.service ? fieldId("service-error") : undefined}
             defaultValue=""
+            onChange={(e) => setSelectedService(e.target.value)}
             className={cn(inputClasses, errors.service && "border-red-600")}
           >
             <option value="" disabled>
@@ -270,48 +275,53 @@ export function QuoteForm() {
           )}
         </div>
 
-        <div>
-          <label
-            htmlFor={fieldId("stories")}
-            className="mb-1.5 block text-sm font-semibold text-ink-900"
-          >
-            Stories <span className="font-normal text-ink-500">(optional)</span>
-          </label>
-          <select
-            id={fieldId("stories")}
-            name="stories"
-            defaultValue=""
-            className={inputClasses}
-          >
-            <option value="">Not sure</option>
-            <option value="1 storey">1 storey</option>
-            <option value="2 storeys">2 storeys</option>
-            <option value="3 storeys">3 storeys</option>
-            <option value="4+ storeys">4+ storeys</option>
-          </select>
-        </div>
+        {showWindowFields && (
+          <>
+            <div>
+              <label
+                htmlFor={fieldId("stories")}
+                className="mb-1.5 block text-sm font-semibold text-ink-900"
+              >
+                Stories <span className="font-normal text-ink-500">(optional)</span>
+              </label>
+              <select
+                id={fieldId("stories")}
+                name="stories"
+                defaultValue=""
+                className={inputClasses}
+              >
+                <option value="">Not sure</option>
+                <option value="1 storey">1 storey</option>
+                <option value="2 storeys">2 storeys</option>
+                <option value="3 storeys">3 storeys</option>
+                <option value="4+ storeys">4+ storeys</option>
+              </select>
+            </div>
 
-        <div>
-          <label
-            htmlFor={fieldId("windows")}
-            className="mb-1.5 block text-sm font-semibold text-ink-900"
-          >
-            Number of windows <span className="font-normal text-ink-500">(optional)</span>
-          </label>
-          <select
-            id={fieldId("windows")}
-            name="windows"
-            defaultValue=""
-            className={inputClasses}
-          >
-            <option value="">Not sure</option>
-            <option value="1-10 windows">1–10</option>
-            <option value="11-20 windows">11–20</option>
-            <option value="21-30 windows">21–30</option>
-            <option value="30-40 windows">30–40</option>
-            <option value="50+ windows">50+</option>
-          </select>
-        </div>
+            <div>
+              <label
+                htmlFor={fieldId("windows")}
+                className="mb-1.5 block text-sm font-semibold text-ink-900"
+              >
+                Number of windows{" "}
+                <span className="font-normal text-ink-500">(optional)</span>
+              </label>
+              <select
+                id={fieldId("windows")}
+                name="windows"
+                defaultValue=""
+                className={inputClasses}
+              >
+                <option value="">Not sure</option>
+                <option value="1-10 windows">1–10</option>
+                <option value="11-20 windows">11–20</option>
+                <option value="21-30 windows">21–30</option>
+                <option value="30-40 windows">30–40</option>
+                <option value="50+ windows">50+</option>
+              </select>
+            </div>
+          </>
+        )}
 
         <div>
           <label
