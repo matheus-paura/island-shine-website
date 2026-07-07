@@ -299,7 +299,8 @@ export function QuoteForm() {
             <option value="1-10 windows">1–10</option>
             <option value="11-20 windows">11–20</option>
             <option value="21-30 windows">21–30</option>
-            <option value="31+ windows">31+</option>
+            <option value="30-40 windows">30–40</option>
+            <option value="50+ windows">50+</option>
           </select>
         </div>
 
