@@ -6,7 +6,6 @@
  */
 export type EventName =
   | "phone_click"
-  | "whatsapp_click"
   | "cta_click" // any "Get free quote" button
   | "form_start" // first interaction with the form
   | "generate_lead"; // successful form submit (primary conversion)
@@ -35,7 +34,6 @@ export function track(event: EventName, params: Record<string, unknown> = {}): v
     const map: Record<EventName, string | null> = {
       generate_lead: "Lead",
       phone_click: "Contact",
-      whatsapp_click: "Contact",
       cta_click: null, // custom
       form_start: null, // custom
     };

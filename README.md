@@ -59,7 +59,7 @@ from `config/site.ts`, which keeps NAP (Name/Address/Phone) consistent for
 local SEO. Keep it identical to the Google Business Profile.
 
 Search the repo for `TODO` to find every placeholder that needs the owner's
-real data (reviews, Google review link, photos, WhatsApp number…).
+real data (reviews, Google review link, photos…).
 
 ### Replacing placeholder images
 
@@ -93,8 +93,8 @@ Details:
   Accept button flips it to `granted` (PIPEDA-friendly). Declining keeps all
   pixels dormant.
 - Events fired (see [`lib/analytics.ts`](lib/analytics.ts)): `phone_click`,
-  `whatsapp_click`, `cta_click`, `form_start`, and `generate_lead` (the primary
-  conversion — map this one in Google Ads / Meta).
+  `cta_click`, `form_start`, and `generate_lead` (the primary conversion — map
+  this one in Google Ads / Meta).
 - In GTM, create triggers on those dataLayer event names.
 
 ## Local SEO notes for the owner

@@ -18,9 +18,9 @@ export const faqs: Faq[] = [
   {
     question: "How do I get a quote?",
     answer:
-      "Three easy ways: call us, message us on WhatsApp, or fill out the short quote " +
-      "form on this page. Tell us your neighbourhood and what you'd like cleaned, and " +
-      "we'll reply within 24 hours — usually much sooner.",
+      "Two easy ways: call us, or fill out the short quote form on this page. Tell us " +
+      "your address and what you'd like cleaned, and we'll reply within 24 hours — " +
+      "usually much sooner.",
   },
   {
     question: "Are you licensed and insured?",

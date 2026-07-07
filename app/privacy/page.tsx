@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 // TODO: have the owner review this policy (and get legal advice if needed)
 // before running paid ads. It is written to cover the current setup: quote
-// form + phone/WhatsApp contact + optional analytics cookies.
+// form + phone contact + optional analytics cookies.
 export default function PrivacyPage() {
   return (
     <>

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Mail, MessageCircle, Phone, ShieldCheck, Star } from "lucide-react";
-import { siteConfig, telUrl, whatsappUrl } from "@/config/site";
+import { Clock, Mail, Phone, ShieldCheck, Star } from "lucide-react";
+import { siteConfig, telUrl } from "@/config/site";
 import { serviceAreas } from "@/content/service-areas";
 import { Badge } from "@/components/ui/Badge";
 import { Container } from "@/components/ui/Container";
@@ -76,17 +76,6 @@ export function Footer() {
                 >
                   <Mail className="h-4 w-4 text-orange-400" aria-hidden="true" />
                   {siteConfig.email}
-                </a>
-              </li>
-              <li>
-                <a
-                  href={whatsappUrl()}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-white transition-colors hover:text-orange-400"
-                >
-                  <MessageCircle className="h-4 w-4 text-orange-400" aria-hidden="true" />
-                  Message on WhatsApp
                 </a>
               </li>
               {siteConfig.hours.map((h) => (

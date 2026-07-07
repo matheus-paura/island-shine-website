@@ -12,7 +12,7 @@ import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { SkipLink } from "@/components/layout/SkipLink";
 import { StickyCallBar } from "@/components/layout/StickyCallBar";
-import { WhatsAppButton } from "@/components/layout/WhatsAppButton";
+import { CallButton } from "@/components/layout/CallButton";
 import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
@@ -91,7 +91,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </div>
         <StickyCallBar />
-        <WhatsAppButton />
+        <CallButton />
         {/* No pixels configured → no cookies set → no banner needed. */}
         {analyticsConfigured && <ConsentBanner />}
         <TrackingScripts />

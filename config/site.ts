@@ -18,8 +18,7 @@ export const siteConfig = {
   // TODO: confirm phone; 289 is an Ontario area code — a local 250/236/778
   // number builds more local trust in Victoria.
   phone: "289-925-9779",
-  phoneE164: "+12899259779", // used for tel: and WhatsApp links
-  whatsapp: "+12899259779", // TODO: confirm WhatsApp number
+  phoneE164: "+12899259779", // used for tel: links
   email: "hello@islandshine.ca", // TODO: confirm real inbox
 
   address: {
@@ -59,8 +58,6 @@ export const siteConfig = {
   // Response promise used in CTAs
   responsePromise: "We reply within 24 hours",
 
-  whatsappPrefill: "Hi Island Shine, I'd like a free quote.",
-
   priceRange: "$$",
 
   // Analytics IDs are read from env, NOT stored here (Section 9).
@@ -71,11 +68,6 @@ export type SiteConfig = typeof siteConfig;
 /** Human-readable phone for display; tel:/wa.me links must use phoneE164. */
 export function formatPhoneDisplay(): string {
   return siteConfig.phone;
-}
-
-export function whatsappUrl(prefill: string = siteConfig.whatsappPrefill): string {
-  const number = siteConfig.whatsapp.replace(/[^\d]/g, "");
-  return `https://wa.me/${number}?text=${encodeURIComponent(prefill)}`;
 }
 
 export function telUrl(): string {
