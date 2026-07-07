@@ -7,7 +7,9 @@ import { services } from "@/content/services";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
 
-type FieldErrors = Partial<Record<"name" | "phone" | "service" | "area", string>>;
+type FieldErrors = Partial<
+  Record<"name" | "phone" | "service" | "area" | "email", string>
+>;
 type Status = "idle" | "submitting" | "success" | "error";
 
 const inputClasses =
@@ -19,6 +21,10 @@ const MIN_FILL_TIME_MS = 3000;
 function validPhone(value: string): boolean {
   const digits = value.replace(/\D/g, "");
   return digits.length >= 10 && digits.length <= 15;
+}
+
+function validEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 }
 
 /**
@@ -65,6 +71,9 @@ export function QuoteForm() {
       nextErrors.phone = "That phone number doesn't look right — please double-check.";
     if (!service) nextErrors.service = "Please pick a service (or choose Other).";
     if (!area) nextErrors.area = "Please tell us your area or neighbourhood.";
+    if (!email) nextErrors.email = "We need an email to send your quote.";
+    else if (!validEmail(email))
+      nextErrors.email = "That email doesn't look right — please double-check.";
 
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
@@ -103,7 +112,7 @@ export function QuoteForm() {
             phone,
             service,
             area,
-            email: email || undefined,
+            email,
             stories: stories || undefined,
             windows: windows || undefined,
             message: message || undefined,
@@ -309,7 +318,7 @@ export function QuoteForm() {
             htmlFor={fieldId("email")}
             className="mb-1.5 block text-sm font-semibold text-ink-900"
           >
-            Email <span className="font-normal text-ink-500">(optional)</span>
+            Email <span aria-hidden="true">*</span>
           </label>
           <input
             id={fieldId("email")}
@@ -317,8 +326,17 @@ export function QuoteForm() {
             type="email"
             inputMode="email"
             autoComplete="email"
-            className={inputClasses}
+            required
+            aria-required="true"
+            aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? fieldId("email-error") : undefined}
+            className={cn(inputClasses, errors.email && "border-red-600")}
           />
+          {errors.email && (
+            <p id={fieldId("email-error")} className="mt-1.5 text-sm text-red-700">
+              {errors.email}
+            </p>
+          )}
         </div>
 
         <div className="sm:col-span-2">
