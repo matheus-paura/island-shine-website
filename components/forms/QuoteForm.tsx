@@ -53,6 +53,8 @@ export function QuoteForm() {
     const service = String(data.get("service") ?? "").trim();
     const area = String(data.get("area") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
+    const stories = String(data.get("stories") ?? "").trim();
+    const windows = String(data.get("windows") ?? "").trim();
     const message = String(data.get("message") ?? "").trim();
     const honeypot = String(data.get("company") ?? "").trim();
 
@@ -102,6 +104,8 @@ export function QuoteForm() {
             service,
             area,
             email: email || undefined,
+            stories: stories || undefined,
+            windows: windows || undefined,
             message: message || undefined,
             source: "islandshine.ca quote form",
           }),
@@ -255,6 +259,48 @@ export function QuoteForm() {
               {errors.area}
             </p>
           )}
+        </div>
+
+        <div>
+          <label
+            htmlFor={fieldId("stories")}
+            className="mb-1.5 block text-sm font-semibold text-ink-900"
+          >
+            Stories <span className="font-normal text-ink-500">(optional)</span>
+          </label>
+          <select
+            id={fieldId("stories")}
+            name="stories"
+            defaultValue=""
+            className={inputClasses}
+          >
+            <option value="">Not sure</option>
+            <option value="1 storey">1 storey</option>
+            <option value="2 storeys">2 storeys</option>
+            <option value="3 storeys">3 storeys</option>
+            <option value="4+ storeys">4+ storeys</option>
+          </select>
+        </div>
+
+        <div>
+          <label
+            htmlFor={fieldId("windows")}
+            className="mb-1.5 block text-sm font-semibold text-ink-900"
+          >
+            Number of windows <span className="font-normal text-ink-500">(optional)</span>
+          </label>
+          <select
+            id={fieldId("windows")}
+            name="windows"
+            defaultValue=""
+            className={inputClasses}
+          >
+            <option value="">Not sure</option>
+            <option value="1-10 windows">1–10</option>
+            <option value="11-20 windows">11–20</option>
+            <option value="21-30 windows">21–30</option>
+            <option value="31+ windows">31+</option>
+          </select>
         </div>
 
         <div>
