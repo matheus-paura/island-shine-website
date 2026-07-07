@@ -1,12 +1,12 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Menu, Phone, X } from "lucide-react";
 import { siteConfig, telUrl } from "@/config/site";
 import { track } from "@/lib/analytics";
 import { cn } from "@/lib/utils";
-import { IslandMark } from "@/components/ui/IslandMark";
 
 const navLinks = [
   { href: "/#services", label: "Services" },
@@ -50,13 +50,19 @@ export function Header() {
       )}
     >
       <div className="mx-auto flex h-16 max-w-container items-center justify-between px-5 md:h-20 md:px-8">
-        {/* TODO: replace text lockup with the real logo SVG when available */}
         <Link
           href="/"
           className="flex items-center gap-2 text-white"
           aria-label={`${siteConfig.shortName} — home`}
         >
-          <IslandMark className="text-orange-400" />
+          <Image
+            src="/images/logo/icon-square.png"
+            alt=""
+            width={40}
+            height={40}
+            className="h-9 w-9 md:h-10 md:w-10"
+            priority
+          />
           <span className="heading-display text-xl font-bold tracking-wide">
             {siteConfig.shortName}
           </span>

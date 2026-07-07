@@ -1,10 +1,10 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Clock, Mail, MessageCircle, Phone, ShieldCheck, Star } from "lucide-react";
 import { siteConfig, telUrl, whatsappUrl } from "@/config/site";
 import { serviceAreas } from "@/content/service-areas";
 import { Badge } from "@/components/ui/Badge";
 import { Container } from "@/components/ui/Container";
-import { IslandMark } from "@/components/ui/IslandMark";
 
 const quickNav = [
   { href: "/#services", label: "Services" },
@@ -24,7 +24,13 @@ export function Footer() {
           {/* Business */}
           <div>
             <div className="flex items-center gap-2">
-              <IslandMark className="text-orange-400" />
+              <Image
+                src="/images/logo/icon-square.png"
+                alt=""
+                width={36}
+                height={36}
+                className="h-9 w-9"
+              />
               <span className="heading-display text-lg font-bold tracking-wide">
                 {siteConfig.shortName}
               </span>

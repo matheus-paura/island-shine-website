@@ -43,7 +43,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     slug: "deck-pressure-wash",
-    label: "Deck Pressure Wash",
+    label: "Pressure Wash",
     before: "/images/gallery/driveway-before.jpg",
     after: "/images/gallery/driveway-after.jpg",
     beforeAlt: "Composite deck stained with dirt and grime before pressure washing",
