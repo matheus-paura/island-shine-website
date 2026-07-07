@@ -13,8 +13,34 @@ cp .env.example .env.local   # then fill in what you have (all optional for dev)
 npm run dev      # http://localhost:3000
 ```
 
-`npm run build` must pass with zero errors before deploying (Vercel or Netlify —
-the code is host-agnostic).
+`npm run build` must pass with zero errors before deploying. The site is a fully
+static export (`output: "export"` in `next.config.ts` — there's no server-side
+code; the quote form posts straight from the browser to the n8n webhook), so it
+deploys to Cloudflare Pages, Vercel, Netlify, or any static host.
+
+## Deploying to Cloudflare Pages
+
+**Option A — connect a Git repo (recommended, auto-deploys on push):**
+
+1. Push this repo to GitHub/GitLab.
+2. In the Cloudflare dashboard: **Workers & Pages → Create → Pages → Connect to Git**.
+3. Select the repo. Build settings:
+   - Framework preset: **Next.js (Static HTML Export)**
+   - Build command: `npm run build`
+   - Build output directory: `out`
+4. Add the environment variables from `.env.example` under **Settings → Environment variables** (at minimum `NEXT_PUBLIC_FORM_ENDPOINT`).
+5. Deploy. Add the `islandshine.ca` custom domain under **Custom domains** once it's live.
+
+**Option B — deploy directly from the CLI (no Git needed):**
+
+```bash
+npm run deploy:cloudflare
+```
+
+This runs `next build` then `wrangler pages deploy out --project-name=island-shine`.
+The first run opens a browser tab to log into your Cloudflare account and asks
+you to confirm creating the `island-shine` Pages project — after that, rerunning
+the same command ships updates.
 
 ## Editing content (no code knowledge needed beyond the file)
 

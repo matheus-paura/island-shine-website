@@ -2,6 +2,9 @@ import type { MetadataRoute } from "next";
 import { siteConfig } from "@/config/site";
 import { serviceAreas } from "@/content/service-areas";
 
+// Required for static export — this route has no request-dependent data.
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date();
 

@@ -6,10 +6,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "placeholders": "node scripts/generate-placeholders.mjs"
+    "placeholders": "node scripts/generate-placeholders.mjs",
+    "deploy:cloudflare": "next build && wrangler pages deploy out --project-name=island-shine"
   },
   "dependencies": {
     "lucide-react": "^0.525.0",
@@ -29,6 +29,7 @@
     "prettier-plugin-tailwindcss": "^0.6.13",
     "sharp": "^0.34.2",
     "tailwindcss": "^3.4.17",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wrangler": "^4.107.0"
   }
 }

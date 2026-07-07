@@ -9,6 +9,9 @@ next-env.d.ts
 # production
 /build
 
+# cloudflare (wrangler local cache)
+/.wrangler/
+
 # misc
 .DS_Store
 *.pem
