@@ -56,11 +56,11 @@ export function Header() {
           aria-label={`${siteConfig.shortName} — home`}
         >
           <Image
-            src="/images/logo/icon-square.png"
+            src="/images/logo/icon-transparent.png"
             alt=""
-            width={40}
-            height={40}
-            className="h-9 w-9 md:h-10 md:w-10"
+            width={216}
+            height={100}
+            className="h-10 w-auto md:h-12"
             priority
           />
           <span className="heading-display text-xl font-bold tracking-wide">

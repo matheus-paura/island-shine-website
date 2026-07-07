@@ -25,11 +25,11 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2">
               <Image
-                src="/images/logo/icon-square.png"
+                src="/images/logo/icon-transparent.png"
                 alt=""
-                width={36}
-                height={36}
-                className="h-9 w-9"
+                width={216}
+                height={100}
+                className="h-11 w-auto"
               />
               <span className="heading-display text-lg font-bold tracking-wide">
                 {siteConfig.shortName}
