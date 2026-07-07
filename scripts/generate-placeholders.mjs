@@ -3,11 +3,12 @@
  * Every output is a stylized flat illustration — deliberately not a fake
  * photo — so it is obvious what still needs the owner's real job photos.
  *
- * TODO: delete the generated files and drop in real photos before launch:
- *   public/images/hero.jpg           → real Victoria home / before-after shot
- *   public/images/before|after.jpg   → one real job, identical framing
- *   public/images/pair-*-{before,after}.jpg → three more real jobs
- *   public/images/og-image.jpg       → branded 1200x630 share image
+ * The before/after gallery now uses real job photos — see
+ * scripts/import-gallery-photos.mjs and public/images/gallery/ — so this
+ * script only covers the hero and share images.
+ *
+ * TODO: delete the generated file and drop in a real photo before launch:
+ *   public/images/hero.jpg → real Victoria home / before-after shot
  *
  * Run: npm run placeholders
  */
@@ -93,100 +94,6 @@ function ogSvg(w = 1200, h = 630) {
   </svg>`;
 }
 
-/* ------------------------------------------- house facade before/after */
-function facadeSvg(dirty, w = 1600, h = 1200) {
-  const siding = dirty ? "#8E9AA3" : sand[100];
-  const sidingLine = dirty ? "#76828B" : sand[200];
-  const glass = dirty ? "#5E6E76" : navy[500];
-  const sky = dirty ? "#6E7C86" : "#B7D3E8";
-  let sidingLines = "";
-  for (let y = 140; y < h; y += 64) {
-    sidingLines += `<path d="M0 ${y} H ${w}" stroke="${sidingLine}" stroke-width="6"/>`;
-  }
-  const grime = dirty
-    ? grimeBlotches(7, 90, w, h, ["#4F5B44", "#5A6B4A", "#3E4A38", "#6B6455"]) +
-      grimeBlotches(11, 40, w, 260, ["#3E4A38", "#57604D"], [0.2, 0.5])
-    : "";
-  const sparkle = dirty
-    ? ""
-    : `<g stroke="${orange[400]}" stroke-width="8" stroke-linecap="round">
-        <path d="M240 220 v 60 M210 250 h 60"/>
-        <path d="M1340 180 v 44 M1318 202 h 44"/>
-        <path d="M820 140 v 36 M802 158 h 36"/>
-      </g>`;
-  const windowShine = dirty
-    ? ""
-    : `<path d="M0 0 L 200 0 L 60 320 L 0 320 Z" fill="#FFFFFF" opacity="0.35"/>`;
-  const win = (x, y) => `
-    <g transform="translate(${x} ${y})">
-      <rect width="320" height="320" fill="${glass}" stroke="${dirty ? "#4A555C" : "#FFFFFF"}" stroke-width="16"/>
-      <path d="M160 0 V 320 M0 160 H 320" stroke="${dirty ? "#4A555C" : "#FFFFFF"}" stroke-width="10"/>
-      ${windowShine}
-      ${dirty ? grimeBlotches(x + y, 16, 320, 320, ["#414D3B", "#59533F"], [0.2, 0.45]) : ""}
-    </g>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">
-    <rect width="${w}" height="140" fill="${sky}"/>
-    <rect y="140" width="${w}" height="${h - 140}" fill="${siding}"/>
-    ${sidingLines}
-    ${win(200, 320)} ${win(1080, 320)}
-    <rect x="660" y="480" width="280" height="720" fill="${dirty ? "#5C4F44" : navy[700]}" stroke="${dirty ? "#4A4038" : "#FFFFFF"}" stroke-width="14"/>
-    <circle cx="900" cy="850" r="16" fill="${dirty ? "#8A7B6B" : orange[400]}"/>
-    ${grime}
-    ${sparkle}
-  </svg>`;
-}
-
-/* ------------------------------------------------------- thumbnail pairs */
-function drivewaySvg(dirty, s = 800) {
-  const slab = dirty ? "#7A828A" : sand[200];
-  const joint = dirty ? "#5E666E" : "#C3CCD4";
-  let joints = "";
-  for (let i = 1; i < 4; i++) {
-    joints += `<path d="M0 ${(s / 4) * i} H ${s}" stroke="${joint}" stroke-width="10"/>
-               <path d="M${(s / 4) * i} 0 V ${s}" stroke="${joint}" stroke-width="10"/>`;
-  }
-  const stains = dirty
-    ? grimeBlotches(3, 70, s, s, ["#3C4436", "#514A3B", "#2F3A2E"], [0.25, 0.55])
-    : `<path d="M0 60 L 220 0 L 120 300 L 0 380 Z" fill="#FFFFFF" opacity="0.3"/>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}">
-    <rect width="${s}" height="${s}" fill="${slab}"/>${joints}${stains}
-  </svg>`;
-}
-
-function windowThumbSvg(dirty, s = 800) {
-  const glass = dirty ? "#66757D" : navy[500];
-  const frame = dirty ? "#57646C" : "#FFFFFF";
-  const extra = dirty
-    ? grimeBlotches(5, 46, s, s, ["#4E5847", "#5E5A46"], [0.2, 0.5])
-    : `<path d="M0 0 L 340 0 L 100 ${s} L 0 ${s} Z" fill="#FFFFFF" opacity="0.35"/>
-       <g stroke="${orange[400]}" stroke-width="14" stroke-linecap="round">
-         <path d="M600 150 v 90 M555 195 h 90"/>
-       </g>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}">
-    <rect width="${s}" height="${s}" fill="${glass}"/>
-    <g stroke="${frame}" stroke-width="34">
-      <rect x="17" y="17" width="${s - 34}" height="${s - 34}" fill="none"/>
-      <path d="M${s / 2} 0 V ${s} M0 ${s / 2} H ${s}"/>
-    </g>
-    ${extra}
-  </svg>`;
-}
-
-function sidingThumbSvg(dirty, s = 800) {
-  const board = dirty ? "#939BA0" : sand[100];
-  const line = dirty ? "#7B858C" : sand[200];
-  let boards = "";
-  for (let y = 0; y < s; y += 80) {
-    boards += `<path d="M0 ${y} H ${s}" stroke="${line}" stroke-width="8"/>`;
-  }
-  const moss = dirty
-    ? grimeBlotches(9, 110, s, s, ["#44553C", "#55684A", "#38472F"], [0.3, 0.6])
-    : `<path d="M0 100 L 260 0 L 140 380 L 0 480 Z" fill="#FFFFFF" opacity="0.28"/>`;
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}">
-    <rect width="${s}" height="${s}" fill="${board}"/>${boards}${moss}
-  </svg>`;
-}
-
 /* ----------------------------------------------------------- apple icon */
 function appleIconSvg(s = 180) {
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${s}" height="${s}" viewBox="0 0 64 64">
@@ -208,14 +115,6 @@ async function main() {
 
   await jpeg(heroSvg(), path.join(imagesDir, "hero.jpg"), 70);
   await jpeg(ogSvg(), path.join(imagesDir, "og-image.jpg"), 80);
-  await jpeg(facadeSvg(true), path.join(imagesDir, "before.jpg"));
-  await jpeg(facadeSvg(false), path.join(imagesDir, "after.jpg"));
-  await jpeg(drivewaySvg(true, 800), path.join(imagesDir, "pair-1-before.jpg"));
-  await jpeg(drivewaySvg(false, 800), path.join(imagesDir, "pair-1-after.jpg"));
-  await jpeg(windowThumbSvg(true, 800), path.join(imagesDir, "pair-2-before.jpg"));
-  await jpeg(windowThumbSvg(false, 800), path.join(imagesDir, "pair-2-after.jpg"));
-  await jpeg(sidingThumbSvg(true, 800), path.join(imagesDir, "pair-3-before.jpg"));
-  await jpeg(sidingThumbSvg(false, 800), path.join(imagesDir, "pair-3-after.jpg"));
 
   await sharp(Buffer.from(appleIconSvg()))
     .resize(180, 180)
