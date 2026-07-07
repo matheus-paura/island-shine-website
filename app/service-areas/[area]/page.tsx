@@ -167,7 +167,7 @@ export default async function ServiceAreaPage({
                   “{review.quote}”
                 </blockquote>
                 <figcaption className="mt-3 text-sm font-medium text-sand-200">
-                  {review.name} · {review.neighbourhood}
+                  {review.name} · {review.neighbourhood ?? "Google review"}
                 </figcaption>
               </figure>
             ))}

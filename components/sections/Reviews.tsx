@@ -53,7 +53,7 @@ export function Reviews() {
                   “{review.quote}”
                 </blockquote>
                 <figcaption className="mt-4 text-sm font-medium text-sand-200">
-                  {review.name} · {review.neighbourhood}
+                  {review.name} · {review.neighbourhood ?? "Google review"}
                 </figcaption>
               </figure>
             </Reveal>
