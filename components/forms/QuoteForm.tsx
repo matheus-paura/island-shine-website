@@ -74,7 +74,7 @@ export function QuoteForm() {
     else if (!validPhone(phone))
       nextErrors.phone = "That phone number doesn't look right — please double-check.";
     if (!service) nextErrors.service = "Please pick a service (or choose Other).";
-    if (!area) nextErrors.area = "Please tell us your area or neighbourhood.";
+    if (!area) nextErrors.area = "Please tell us your address.";
     if (!email) nextErrors.email = "We need an email to send your quote.";
     else if (!validEmail(email))
       nextErrors.email = "That email doesn't look right — please double-check.";
@@ -254,14 +254,14 @@ export function QuoteForm() {
             htmlFor={fieldId("area")}
             className="mb-1.5 block text-sm font-semibold text-ink-900"
           >
-            Area / neighbourhood <span aria-hidden="true">*</span>
+            Address <span aria-hidden="true">*</span>
           </label>
           <input
             id={fieldId("area")}
             name="area"
             type="text"
-            placeholder="e.g. Oak Bay"
-            autoComplete="address-level2"
+            placeholder="e.g. 123 Main St, Oak Bay"
+            autoComplete="street-address"
             required
             aria-required="true"
             aria-invalid={Boolean(errors.area)}
