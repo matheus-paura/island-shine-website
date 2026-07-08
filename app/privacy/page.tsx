@@ -3,9 +3,16 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { Container } from "@/components/ui/Container";
 
+const title = "Privacy Policy";
+const description = `How ${siteConfig.name} collects, uses, and protects your information.`;
+const url = `${siteConfig.url}/privacy`;
+
 export const metadata: Metadata = {
-  title: "Privacy Policy",
-  description: `How ${siteConfig.name} collects, uses, and protects your information.`,
+  title,
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
 };
 
 // TODO: have the owner review this policy (and get legal advice if needed)

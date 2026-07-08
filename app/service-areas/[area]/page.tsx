@@ -34,11 +34,22 @@ export async function generateMetadata({
   const { area: slug } = await params;
   const area = getAreaBySlug(slug);
   if (!area) return {};
+
+  // title.absolute bypasses the root layout's "%s · Island Shine Property
+  // Services" template — that suffix pushed area titles past 80 characters,
+  // truncating the city name in Google's results.
+  const title = `Window Cleaning & Pressure Washing in ${area.name}, BC | Island Shine`;
+  const description =
+    `Professional window cleaning, pressure washing and soft washing in ${area.name}, ` +
+    `BC. Licensed, insured and owner-operated. Free quotes — we reply within 24 hours.`;
+  const url = `${siteConfig.url}/service-areas/${area.slug}`;
+
   return {
-    title: `Window Cleaning & Pressure Washing in ${area.name}, BC`,
-    description:
-      `Professional window cleaning, pressure washing and soft washing in ${area.name}, ` +
-      `BC. Licensed, insured and owner-operated. Free quotes — we reply within 24 hours.`,
+    title: { absolute: title },
+    description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url },
+    twitter: { title, description },
   };
 }
 

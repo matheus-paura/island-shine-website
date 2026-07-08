@@ -12,6 +12,8 @@ type GalleryItem = {
   label: string;
   before: string;
   after: string;
+  /** Small pre-sized "before" shot for the static thumbnail card (unused by FEATURED, which never renders as a thumbnail). */
+  thumb?: string;
   beforeAlt: string;
   afterAlt: string;
   /** width / height, used to size the comparison box without layout shift */
@@ -37,6 +39,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     label: "Window Cleaning",
     before: "/images/gallery/window-cleaning-before.jpg",
     after: "/images/gallery/window-cleaning-after.jpg",
+    thumb: "/images/gallery/window-cleaning-before-thumb.jpg",
     beforeAlt: "Hazy, streaked window before professional cleaning, Victoria BC",
     afterAlt: "The same window crystal clear after professional cleaning",
     aspectRatio: 2200 / 1650,
@@ -46,6 +49,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     label: "Pressure Wash",
     before: "/images/gallery/driveway-before.jpg",
     after: "/images/gallery/driveway-after.jpg",
+    thumb: "/images/gallery/driveway-before-thumb.jpg",
     beforeAlt: "Composite deck stained with dirt and grime before pressure washing",
     afterAlt: "The same deck restored to a like-new finish after pressure washing",
     aspectRatio: 2200 / 2933,
@@ -179,7 +183,7 @@ function GalleryThumbnail({ item, onOpen }: { item: GalleryItem; onOpen: () => v
     >
       <div className="relative w-full" style={{ aspectRatio: item.aspectRatio }}>
         <Image
-          src={item.before}
+          src={item.thumb ?? item.before}
           alt={item.beforeAlt}
           fill
           sizes="(max-width: 640px) 100vw, 480px"

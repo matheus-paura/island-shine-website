@@ -7,11 +7,18 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 
+const title = "Service Areas — Greater Victoria, BC | Island Shine";
+const description =
+  "Island Shine serves all of Greater Victoria: window cleaning, pressure washing " +
+  "and soft washing in Victoria, Saanich, Oak Bay, Langford, Sidney, Sooke and more.";
+const url = `${siteConfig.url}/service-areas`;
+
 export const metadata: Metadata = {
-  title: "Service Areas — Greater Victoria, BC",
-  description:
-    "Island Shine serves all of Greater Victoria: window cleaning, pressure washing " +
-    "and soft washing in Victoria, Saanich, Oak Bay, Langford, Sidney, Sooke and more.",
+  title: { absolute: title },
+  description,
+  alternates: { canonical: url },
+  openGraph: { title, description, url },
+  twitter: { title, description },
 };
 
 export default function ServiceAreasPage() {

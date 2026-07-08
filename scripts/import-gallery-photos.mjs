@@ -25,18 +25,40 @@ const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const outDir = path.join(root, "public", "images", "gallery");
 const downloads = "/Users/paura/Downloads";
 
+// `thumb: true` also renders a small `-thumb.jpg` variant — only needed for
+// the two "before" shots that appear as static cards in BeforeAfter.tsx;
+// the featured soft-wash pair and every "after" shot are only ever shown at
+// slider size, never as a small static thumbnail.
 const jobs = [
   { src: "soft wash sujo.HEIC", out: "soft-wash-before.jpg", rotate: 90 },
   { src: "soft wash limpo.HEIC", out: "soft-wash-after.jpg", rotate: 90 },
-  { src: "Window cleaning sujo.HEIC", out: "window-cleaning-before.jpg", rotate: 0 },
+  {
+    src: "Window cleaning sujo.HEIC",
+    out: "window-cleaning-before.jpg",
+    rotate: 0,
+    thumb: true,
+  },
   { src: "Window cleaning limpo.HEIC", out: "window-cleaning-after.jpg", rotate: 0 },
-  { src: "Driveway pressure wash sujo.HEIC", out: "driveway-before.jpg", rotate: 90 },
+  {
+    src: "Driveway pressure wash sujo.HEIC",
+    out: "driveway-before.jpg",
+    rotate: 90,
+    thumb: true,
+  },
   {
     src: "Driveway pressure wash sujo limpo.HEIC",
     out: "driveway-after.jpg",
     rotate: 90,
   },
 ];
+
+// Static export (Cloudflare Pages) has no image-optimization server, so
+// next/image can't generate responsive sizes on the fly — these pre-sized
+// variants ARE the responsive sizes. 1400px comfortably covers the slider's
+// largest on-screen size (~640px tall) at 2x retina; 480px covers the
+// thumbnail cards (~300-380px wide) the same way.
+const FULL_WIDTH = 1400;
+const THUMB_WIDTH = 480;
 
 async function main() {
   await mkdir(outDir, { recursive: true });
@@ -53,10 +75,19 @@ async function main() {
 
       const output = path.join(outDir, job.out);
       await sharp(decoded)
-        .resize({ width: 2200, withoutEnlargement: true })
-        .jpeg({ quality: 80, mozjpeg: true })
+        .resize({ width: FULL_WIDTH, withoutEnlargement: true })
+        .jpeg({ quality: 78, mozjpeg: true })
         .toFile(output);
       console.log("wrote", path.relative(root, output));
+
+      if (job.thumb) {
+        const thumbOut = path.join(outDir, job.out.replace(/\.jpg$/, "-thumb.jpg"));
+        await sharp(decoded)
+          .resize({ width: THUMB_WIDTH, withoutEnlargement: true })
+          .jpeg({ quality: 75, mozjpeg: true })
+          .toFile(thumbOut);
+        console.log("wrote", path.relative(root, thumbOut));
+      }
     }
   } finally {
     await rm(tmp, { recursive: true, force: true });
