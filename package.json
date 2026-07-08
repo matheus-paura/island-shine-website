@@ -9,7 +9,7 @@
     "lint": "next lint",
     "format": "prettier --write .",
     "placeholders": "node scripts/generate-placeholders.mjs",
-    "deploy:cloudflare": "next build && wrangler pages deploy out --project-name=island-shine"
+    "deploy:cloudflare": "next build && wrangler deploy"
   },
   "dependencies": {
     "lucide-react": "^0.525.0",
