@@ -19,7 +19,7 @@ export const siteConfig = {
   // number builds more local trust in Victoria.
   phone: "289-925-9779",
   phoneE164: "+12899259779", // used for tel: links
-  email: "hello@islandshine.ca", // TODO: confirm real inbox
+  email: "laughlan@islandshine.ca",
 
   address: {
     // Service-area business; street address optional, city/region required.
