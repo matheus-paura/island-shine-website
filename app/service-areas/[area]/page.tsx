@@ -41,7 +41,7 @@ export async function generateMetadata({
   const title = `Window Cleaning & Pressure Washing in ${area.name}, BC | Island Shine`;
   const description =
     `Professional window cleaning, pressure washing and soft washing in ${area.name}, ` +
-    `BC. Licensed, insured and owner-operated. Free quotes — we reply within 24 hours.`;
+    `BC. Licensed, insured and owner-operated. Free quotes, and we reply within 24 hours.`;
   const url = `${siteConfig.url}/service-areas/${area.slug}`;
 
   return {
@@ -200,7 +200,7 @@ export default async function ServiceAreaPage({
             Get your free {area.name} quote
           </h2>
           <p className="mt-4 text-center text-sand-200">
-            {siteConfig.responsePromise} — or call{" "}
+            {siteConfig.responsePromise}, or call{" "}
             <a href={telUrl()} className="font-semibold text-white underline">
               {siteConfig.phone}
             </a>

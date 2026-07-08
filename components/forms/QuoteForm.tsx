@@ -72,12 +72,12 @@ export function QuoteForm() {
     if (!name) nextErrors.name = "Please tell us your name.";
     if (!phone) nextErrors.phone = "We need a phone number to send your quote.";
     else if (!validPhone(phone))
-      nextErrors.phone = "That phone number doesn't look right — please double-check.";
+      nextErrors.phone = "That phone number doesn't look right. Please double-check.";
     if (!service) nextErrors.service = "Please pick a service (or choose Other).";
     if (!area) nextErrors.area = "Please tell us your address.";
     if (!email) nextErrors.email = "We need an email to send your quote.";
     else if (!validEmail(email))
-      nextErrors.email = "That email doesn't look right — please double-check.";
+      nextErrors.email = "That email doesn't look right. Please double-check.";
 
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) {
@@ -141,7 +141,7 @@ export function QuoteForm() {
       >
         <CheckCircle2 className="mx-auto h-12 w-12 text-success" aria-hidden="true" />
         <h3 className="heading-display mt-4 text-display-3 text-navy-800">
-          Thanks — we&apos;ll call you within 24 hours
+          Thanks! We&apos;ll call you within 24 hours
         </h3>
         <p className="mt-2 text-ink-500">
           Your quote request is in. If it&apos;s urgent, call us right now at{" "}
@@ -406,7 +406,7 @@ export function QuoteForm() {
 
       <p className="mt-3 text-center text-sm text-ink-500">
         <Phone className="mr-1 inline h-3.5 w-3.5" aria-hidden="true" />
-        {siteConfig.responsePromise} — or call{" "}
+        {siteConfig.responsePromise}, or call{" "}
         <a href={telUrl()} className="font-semibold text-navy-700 underline">
           {siteConfig.phone}
         </a>

@@ -10,7 +10,7 @@ export const siteConfig = {
   tagline: "Quality is our #1 priority",
   description:
     "Professional window cleaning, pressure washing, and soft washing in Victoria, BC. " +
-    "Licensed, insured, and owner-operated. Free quotes — call today.",
+    "Licensed, insured, and owner-operated. Free quotes, call today.",
   url: "https://islandshine.ca",
   ogImage: "/images/og-image.jpg", // 1200x630
 

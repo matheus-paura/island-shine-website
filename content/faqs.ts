@@ -10,7 +10,7 @@ export const faqs: Faq[] = [
   {
     question: "How much does window cleaning or pressure washing cost?",
     answer:
-      "Every property is different, so we quote each job individually — for free. " +
+      "Every property is different, so we quote each job individually, for free. " +
       "Send a few details through the quote form or call us, and we'll get you a " +
       "clear, no-obligation price within 24 hours. No hidden fees, and the price we " +
       "quote is the price you pay.",
@@ -19,7 +19,7 @@ export const faqs: Faq[] = [
     question: "How do I get a quote?",
     answer:
       "Two easy ways: call us, or fill out the short quote form on this page. Tell us " +
-      "your address and what you'd like cleaned, and we'll reply within 24 hours — " +
+      "your address and what you'd like cleaned, and we'll reply within 24 hours, " +
       "usually much sooner.",
   },
   {
@@ -42,7 +42,7 @@ export const faqs: Faq[] = [
     answer:
       "Pressure washing uses controlled high pressure for hard surfaces like driveways, " +
       "patios, and walkways. Soft washing uses low pressure and gentle cleaning solutions " +
-      "for delicate surfaces like siding, stucco, and roofs — it removes moss and algae " +
+      "for delicate surfaces like siding, stucco, and roofs. It removes moss and algae " +
       "without damaging the surface. We'll recommend the right method for each area of " +
       "your property.",
   },
@@ -51,12 +51,12 @@ export const faqs: Faq[] = [
     answer:
       "We serve all of Greater Victoria, including Victoria, Saanich, Oak Bay, Esquimalt, " +
       "View Royal, Langford, Colwood, Sooke, Sidney, and the Saanich Peninsula. Not sure " +
-      "if we cover your area? Call us — we probably do.",
+      "if we cover your area? Call us, we probably do.",
   },
   {
     question: "Do I need to be home during the cleaning?",
     answer:
-      "For exterior-only work, no — as long as we can access the areas being cleaned, " +
+      "For exterior-only work, no. As long as we can access the areas being cleaned, " +
       "you can go about your day. For interior window cleaning we'll arrange a time that " +
       "works for you. Either way, you'll deal directly with the owner from quote to " +
       "finished job.",

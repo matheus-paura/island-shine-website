@@ -33,7 +33,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: `${siteConfig.shortName} — Window Cleaning & Pressure Washing in Victoria, BC`,
+    default: `Window Cleaning & Pressure Washing in Victoria, BC | ${siteConfig.shortName}`,
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_CA",
     siteName: siteConfig.name,
-    title: `${siteConfig.shortName} — Window Cleaning & Pressure Washing in Victoria, BC`,
+    title: `Window Cleaning & Pressure Washing in Victoria, BC | ${siteConfig.shortName}`,
     description: siteConfig.description,
     url: siteConfig.url,
     images: [
@@ -54,13 +54,13 @@ export const metadata: Metadata = {
         url: siteConfig.ogImage,
         width: 1200,
         height: 630,
-        alt: `${siteConfig.name} — exterior cleaning in Victoria, BC`,
+        alt: `${siteConfig.name}, exterior cleaning in Victoria, BC`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.shortName} — Window Cleaning & Pressure Washing in Victoria, BC`,
+    title: `Window Cleaning & Pressure Washing in Victoria, BC | ${siteConfig.shortName}`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
   },

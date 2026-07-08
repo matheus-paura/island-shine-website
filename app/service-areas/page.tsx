@@ -7,7 +7,7 @@ import { breadcrumbSchema } from "@/lib/schema";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { Container } from "@/components/ui/Container";
 
-const title = "Service Areas — Greater Victoria, BC | Island Shine";
+const title = "Service Areas in Greater Victoria, BC | Island Shine";
 const description =
   "Island Shine serves all of Greater Victoria: window cleaning, pressure washing " +
   "and soft washing in Victoria, Saanich, Oak Bay, Langford, Sidney, Sooke and more.";
@@ -44,7 +44,7 @@ export default function ServiceAreasPage() {
           </h1>
           <p className="mt-4 max-w-2xl text-lg text-sand-200">
             {siteConfig.shortName} covers all of Greater Victoria and the Saanich
-            Peninsula. Pick your community below — or just call{" "}
+            Peninsula. Pick your community below, or just call{" "}
             <a
               href={`tel:${siteConfig.phoneE164}`}
               className="font-semibold text-white underline"

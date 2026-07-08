@@ -8,7 +8,7 @@ const valueProps = [
   {
     icon: UserCheck,
     title: "You deal with the owner",
-    text: `${siteConfig.owner.name} quotes, cleans, and follows up personally — not a call center, not a rotating crew.`,
+    text: `${siteConfig.owner.name} quotes, cleans, and follows up personally, not a call center or a rotating crew.`,
   },
   {
     icon: ShieldCheck,
@@ -18,7 +18,7 @@ const valueProps = [
   {
     icon: MapPin,
     title: "Local to Vancouver Island",
-    text: "We know the coastal climate — the salt spray, the winter moss, the algae — and how to beat it.",
+    text: "We know the coastal climate: the salt spray, the winter moss, the algae, and how to beat it.",
   },
   {
     icon: Star,
@@ -39,7 +39,7 @@ export function WhyChooseUs() {
           id="why-heading"
           eyebrow="Why Island Shine"
           title="Small company, higher standard"
-          subtext="No franchises, no subcontractors — just careful, insured work from a local owner who answers his own phone."
+          subtext="No franchises, no subcontractors, just careful, insured work from a local owner who answers his own phone."
         />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {valueProps.map((prop, index) => (

@@ -53,7 +53,7 @@ export function Header() {
         <Link
           href="/"
           className="flex items-center gap-2 text-white"
-          aria-label={`${siteConfig.shortName} — home`}
+          aria-label={`${siteConfig.shortName} home`}
         >
           <Image
             src="/images/logo/icon-transparent.png"

@@ -15,7 +15,7 @@ export function CallButton() {
     <a
       href={telUrl()}
       onClick={() => track("phone_click", { location: "floating_button" })}
-      aria-label={`Call ${siteConfig.shortName} — get a free quote`}
+      aria-label={`Call ${siteConfig.shortName} for a free quote`}
       className="fixed bottom-6 right-6 z-30 hidden h-14 w-14 items-center justify-center rounded-full bg-success text-white shadow-card-hover transition-transform duration-200 hover:-translate-y-1 md:flex"
     >
       <Phone className="h-7 w-7" aria-hidden="true" />

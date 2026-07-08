@@ -19,7 +19,7 @@ export function ServiceAreaTeaser() {
           id="areas-heading"
           eyebrow="Where we work"
           title="We serve Greater Victoria"
-          subtext="From downtown Victoria to Sooke and the Saanich Peninsula — if you're on the South Island, we've got you covered."
+          subtext="From downtown Victoria to Sooke and the Saanich Peninsula, if you're on the South Island, we've got you covered."
         />
 
         <Reveal className="mt-10">
@@ -45,7 +45,7 @@ export function ServiceAreaTeaser() {
             className="inline-flex items-center gap-1 font-semibold text-navy-700 underline decoration-orange-500 decoration-2 underline-offset-4 transition-colors hover:text-orange-600"
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
-            Call us — we probably do.
+            Call us, we probably do.
           </a>
         </p>
       </Container>

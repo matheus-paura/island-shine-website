@@ -11,7 +11,7 @@ export default function NotFound() {
           This page washed away
         </h1>
         <p className="mx-auto mt-4 max-w-md text-sand-200">
-          The page you&apos;re looking for doesn&apos;t exist — but a free quote is
+          The page you&apos;re looking for doesn&apos;t exist, but a free quote is
           always one tap away.
         </p>
         <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">

@@ -22,7 +22,7 @@ export function FinalCta() {
             Ready for a free quote?
           </h2>
           <p className="mt-4 text-sand-200">
-            {siteConfig.responsePromise} — usually much sooner.
+            {siteConfig.responsePromise}, usually much sooner.
           </p>
         </div>
 

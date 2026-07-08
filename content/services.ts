@@ -35,7 +35,7 @@ export const services: Service[] = [
     short: "Gentle deep-clean for delicate surfaces.",
     description:
       "Low-pressure soft washing safely removes moss, algae, and grime from siding, " +
-      "stucco, and roofs — cleaning deeply without damaging the surface.",
+      "stucco, and roofs, cleaning deeply without damaging the surface.",
     icon: "ShowerHead",
     bullets: ["Siding, stucco & roofs", "No surface damage", "Removes moss & algae"],
   },

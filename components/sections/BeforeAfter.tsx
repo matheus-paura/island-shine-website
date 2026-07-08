@@ -157,7 +157,7 @@ function ComparisonSlider({ item, priority = false }: { item: GalleryItem; prior
       <div
         role="slider"
         tabIndex={0}
-        aria-label={`Compare ${item.label} before and after — arrow keys or drag to move the divider`}
+        aria-label={`Compare ${item.label} before and after. Use arrow keys or drag to move the divider`}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={Math.round(position)}
@@ -228,7 +228,7 @@ function GalleryDialog({
       onClick={(e) => {
         if (e.target === dialogRef.current) onClose();
       }}
-      aria-label={item ? `${item.label} — before and after` : undefined}
+      aria-label={item ? `${item.label}: before and after` : undefined}
       className="w-full max-w-2xl rounded-card bg-navy-900 p-4 shadow-card-hover backdrop:bg-navy-900/80 backdrop:backdrop-blur-sm md:p-6"
     >
       {item && (
@@ -268,7 +268,7 @@ export function BeforeAfter() {
           id="gallery-heading"
           eyebrow="Our work"
           title="See the difference"
-          subtext="Drag the slider to compare. Every photo is a real job — no stock images."
+          subtext="Drag the slider to compare. Every photo is a real job, not a stock image."
           onDark
         />
 
