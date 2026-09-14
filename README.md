@@ -1,6 +1,6 @@
 # Island Shine Property Services — Website
 
-Production-grade lead-generation site for [islandshine.ca](https://islandshine.ca):
+Production-grade lead-generation site for [islandshines.ca](https://islandshines.ca):
 window cleaning, pressure washing & soft washing in Victoria, BC.
 Built with Next.js (App Router) + TypeScript + Tailwind CSS.
 
@@ -29,7 +29,7 @@ deploys to Cloudflare Pages, Vercel, Netlify, or any static host.
    - Build command: `npm run build`
    - Build output directory: `out`
 4. Add the environment variables from `.env.example` under **Settings → Environment variables** (at minimum `NEXT_PUBLIC_FORM_ENDPOINT`).
-5. Deploy. Add the `islandshine.ca` custom domain under **Custom domains** once it's live.
+5. Deploy. Add the `islandshines.ca` custom domain under **Custom domains** once it's live.
 
 **Option B — deploy directly from the CLI (no Git needed):**
 

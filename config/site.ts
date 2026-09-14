@@ -11,7 +11,7 @@ export const siteConfig = {
   description:
     "Professional window cleaning, pressure washing, and soft washing in Victoria, BC. " +
     "Licensed, insured, and owner-operated. Free quotes, call today.",
-  url: "https://islandshine.ca",
+  url: "https://islandshines.ca",
   ogImage: "/images/og-image.jpg", // 1200x630
 
   // Contact / NAP — keep identical to Google Business Profile

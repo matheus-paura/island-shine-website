@@ -120,7 +120,7 @@ export function QuoteForm() {
             stories: stories || undefined,
             windows: windows || undefined,
             message: message || undefined,
-            source: "islandshine.ca quote form",
+            source: "islandshines.ca quote form",
           }),
         });
         if (!res.ok) throw new Error(`Form endpoint responded ${res.status}`);
