@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Clock, Mail, Phone, ShieldCheck, Star } from "lucide-react";
+import { Clock, Instagram, Mail, Phone, ShieldCheck, Star } from "lucide-react";
 import { siteConfig, telUrl } from "@/config/site";
 import { serviceAreas } from "@/content/service-areas";
 import { Badge } from "@/components/ui/Badge";
@@ -23,18 +23,13 @@ export function Footer() {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Business */}
           <div>
-            <div className="flex items-center gap-2">
-              <Image
-                src="/images/logo/icon-transparent.png"
-                alt=""
-                width={216}
-                height={100}
-                className="h-11 w-auto"
-              />
-              <span className="heading-display text-lg font-bold tracking-wide">
-                {siteConfig.shortName}
-              </span>
-            </div>
+            <Image
+              src="/images/logo/lockup.png"
+              alt={siteConfig.name}
+              width={868}
+              height={340}
+              className="h-20 w-auto"
+            />
             <p className="mt-3 text-sm leading-relaxed text-sand-200">
               Professional window cleaning, pressure washing &amp; soft washing in{" "}
               {siteConfig.address.locality}, {siteConfig.address.region}.
@@ -78,6 +73,19 @@ export function Footer() {
                   {siteConfig.email}
                 </a>
               </li>
+              {siteConfig.social.instagram && (
+                <li>
+                  <a
+                    href={siteConfig.social.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-white transition-colors hover:text-orange-400"
+                  >
+                    <Instagram className="h-4 w-4 text-orange-400" aria-hidden="true" />
+                    @islandshinevictoria
+                  </a>
+                </li>
+              )}
               {siteConfig.hours.map((h) => (
                 <li key={h.days} className="flex items-center gap-2 text-sand-200">
                   <Clock className="h-4 w-4 text-orange-400" aria-hidden="true" />

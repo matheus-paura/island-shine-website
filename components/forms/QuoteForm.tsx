@@ -37,8 +37,8 @@ const WINDOW_CLEANING = "Window Cleaning";
 export function QuoteForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [status, setStatus] = useState<Status>("idle");
-  const [selectedService, setSelectedService] = useState("");
-  const showWindowFields = selectedService === WINDOW_CLEANING;
+  const [selectedServices, setSelectedServices] = useState<string[]>([]);
+  const showWindowFields = selectedServices.includes(WINDOW_CLEANING);
   const formStartedRef = useRef(false);
   const mountedAtRef = useRef<number>(Date.now());
   const formRef = useRef<HTMLFormElement>(null);
@@ -60,7 +60,8 @@ export function QuoteForm() {
 
     const name = String(data.get("name") ?? "").trim();
     const phone = String(data.get("phone") ?? "").trim();
-    const service = String(data.get("service") ?? "").trim();
+    const selected = data.getAll("service").map(String);
+    const service = selected.join(", ");
     const area = String(data.get("area") ?? "").trim();
     const email = String(data.get("email") ?? "").trim();
     const stories = String(data.get("stories") ?? "").trim();
@@ -73,7 +74,8 @@ export function QuoteForm() {
     if (!phone) nextErrors.phone = "We need a phone number to send your quote.";
     else if (!validPhone(phone))
       nextErrors.phone = "That phone number doesn't look right. Please double-check.";
-    if (!service) nextErrors.service = "Please pick a service (or choose Other).";
+    if (selected.length === 0)
+      nextErrors.service = "Please pick at least one service (or choose Other).";
     if (!area) nextErrors.area = "Please tell us your address.";
     if (!email) nextErrors.email = "We need an email to send your quote.";
     else if (!validEmail(email))
@@ -115,6 +117,7 @@ export function QuoteForm() {
             name,
             phone,
             service,
+            services: selected,
             area,
             email,
             stories: stories || undefined,
@@ -214,40 +217,54 @@ export function QuoteForm() {
           )}
         </div>
 
-        <div>
-          <label
-            htmlFor={fieldId("service")}
-            className="mb-1.5 block text-sm font-semibold text-ink-900"
-          >
-            Service <span aria-hidden="true">*</span>
-          </label>
-          <select
-            id={fieldId("service")}
-            name="service"
-            required
-            aria-required="true"
-            aria-invalid={Boolean(errors.service)}
-            aria-describedby={errors.service ? fieldId("service-error") : undefined}
-            defaultValue=""
-            onChange={(e) => setSelectedService(e.target.value)}
-            className={cn(inputClasses, errors.service && "border-red-600")}
-          >
-            <option value="" disabled>
-              Choose a service…
-            </option>
-            {services.map((service) => (
-              <option key={service.slug} value={service.name}>
-                {service.name}
-              </option>
-            ))}
-            <option value="Other">Other / not sure</option>
-          </select>
+        <fieldset
+          id={fieldId("service")}
+          tabIndex={-1}
+          aria-invalid={Boolean(errors.service)}
+          aria-describedby={errors.service ? fieldId("service-error") : undefined}
+          className="min-w-0"
+        >
+          <legend className="mb-1.5 block text-sm font-semibold text-ink-900">
+            Services <span aria-hidden="true">*</span>{" "}
+            <span className="font-normal text-ink-500">(select all that apply)</span>
+          </legend>
+          <div className="grid gap-2">
+            {[...services.map((s) => s.name), "Other"].map((name) => {
+              const checked = selectedServices.includes(name);
+              return (
+                <label
+                  key={name}
+                  className={cn(
+                    "flex min-h-11 cursor-pointer items-center gap-3 rounded-control border bg-white px-4 py-2.5 text-ink-900 transition-colors",
+                    checked ? "border-navy-500 bg-sand-100" : "border-sand-200",
+                    errors.service && !checked && "border-red-600",
+                  )}
+                >
+                  <input
+                    type="checkbox"
+                    name="service"
+                    value={name}
+                    checked={checked}
+                    onChange={(e) =>
+                      setSelectedServices((prev) =>
+                        e.target.checked
+                          ? [...prev, name]
+                          : prev.filter((n) => n !== name),
+                      )
+                    }
+                    className="h-5 w-5 shrink-0 accent-orange-500"
+                  />
+                  <span>{name === "Other" ? "Other / not sure" : name}</span>
+                </label>
+              );
+            })}
+          </div>
           {errors.service && (
             <p id={fieldId("service-error")} className="mt-1.5 text-sm text-red-700">
               {errors.service}
             </p>
           )}
-        </div>
+        </fieldset>
 
         <div>
           <label

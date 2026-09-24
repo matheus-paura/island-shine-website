@@ -52,20 +52,17 @@ export function Header() {
       <div className="mx-auto flex h-16 max-w-container items-center justify-between px-5 md:h-20 md:px-8">
         <Link
           href="/"
-          className="flex items-center gap-2 text-white"
+          className="flex items-center text-white"
           aria-label={`${siteConfig.shortName} home`}
         >
           <Image
-            src="/images/logo/icon-transparent.png"
+            src="/images/logo/lockup.png"
             alt=""
-            width={216}
-            height={100}
-            className="h-10 w-auto md:h-12"
+            width={868}
+            height={340}
+            className="h-11 w-auto md:h-14"
             priority
           />
-          <span className="heading-display text-xl font-bold tracking-wide">
-            {siteConfig.shortName}
-          </span>
         </Link>
 
         {/* Desktop nav */}

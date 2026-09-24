@@ -15,10 +15,8 @@ export const siteConfig = {
   ogImage: "/images/og-image.jpg", // 1200x630
 
   // Contact / NAP — keep identical to Google Business Profile
-  // TODO: confirm phone; 289 is an Ontario area code — a local 250/236/778
-  // number builds more local trust in Victoria.
-  phone: "289-925-9779",
-  phoneE164: "+12899259779", // used for tel: links
+  phone: "250-884-9772",
+  phoneE164: "+12508849772", // used for tel: links
   email: "laughlan@islandshine.ca",
 
   address: {
@@ -52,7 +50,7 @@ export const siteConfig = {
   social: {
     google: "", // TODO
     facebook: "", // TODO (business card / profile exists)
-    instagram: "",
+    instagram: "https://www.instagram.com/islandshinevictoria",
   },
 
   // Response promise used in CTAs

@@ -1,18 +1,10 @@
 /**
- * One-off import of the owner's real logo (public/images/logo/) from the
- * source PNGs. Produces:
- *  - icon-square.png: just the island/palm mark, padded to a square on the
- *    logo's own navy background — used as the source for the site's
- *    favicon / apple touch icon (which need an opaque background).
- *  - icon-transparent.png: the same mark with no background, cropped from
- *    the owner's background-removed export — used inline in the header
- *    and footer so it sits directly on our navy without a hard box edge.
- *  - full-logo.png: icon + wordmark trimmed of empty canvas — used for the
- *    Open Graph / share image.
- *
- * Crop boundaries below were measured by scanning each source PNG for
- * non-background/non-transparent pixels (see conversation history) —
- * re-run the same measurement if the source logo files change.
+ * Builds every logo asset from the owner's three source files in
+ * scripts/logo-source/:
+ *  - lockup-navy.png: full wordmark on navy. Background is keyed out to
+ *    transparency -> public/images/logo/lockup.png (header/footer).
+ *  - badge.webp: circular badge -> favicon + apple touch icon.
+ *  - OG image is the navy lockup centered on a 1200x630 canvas.
  *
  * Run: node scripts/import-logo.mjs
  */
@@ -22,70 +14,76 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const src = (f) => path.join(root, "scripts", "logo-source", f);
 const outDir = path.join(root, "public", "images", "logo");
-const source = "/Users/paura/Downloads/ISLAND SHINE.PNG";
-const transparentSource = "/Users/paura/Downloads/ISLAND SHINE-Photoroom.png";
-const navy = { r: 6, g: 21, b: 53, alpha: 1 }; // sampled from the logo's own background
+const bg = { r: 2, g: 25, b: 57 };
+const siteNavy = { r: 7, g: 30, b: 56, alpha: 1 };
 
-// Shared icon-only bounding box (mountain + palms, excludes the wordmark)
-// measured on both source files — they share the same artwork/canvas.
-const iconCrop = { left: 206, top: 292, width: 1562, height: 723 };
+// Content bounds of lockup-navy.png (measured), plus a little padding.
+const pad = 12;
+const lockupCrop = { left: 61 - pad, top: 120 - pad, width: 844 + pad * 2, height: 316 + pad * 2 };
+
+async function keyOutBackground(file, crop) {
+  const { data, info } = await sharp(file)
+    .extract(crop)
+    .ensureAlpha()
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  for (let i = 0; i < data.length; i += 4) {
+    const d = Math.max(
+      Math.abs(data[i] - bg.r),
+      Math.abs(data[i + 1] - bg.g),
+      Math.abs(data[i + 2] - bg.b),
+    );
+    data[i + 3] = Math.max(0, Math.min(255, Math.round(((d - 10) / 50) * 255)));
+  }
+  return sharp(data, { raw: info });
+}
+
+async function circleMask(size, r) {
+  return Buffer.from(
+    `<svg width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${r}" fill="#fff"/></svg>`,
+  );
+}
 
 async function main() {
   await mkdir(outDir, { recursive: true });
 
-  // Icon-only crop, padded to a square on navy (opaque — for favicons).
-  await sharp(source)
-    .extract(iconCrop)
-    .resize({ width: 1600, height: 1600, fit: "contain", background: navy })
-    .resize(1024, 1024)
-    .png()
-    .toFile(path.join(outDir, "icon-square.png"));
-  console.log("wrote public/images/logo/icon-square.png");
+  // Header/footer lockup with transparent background.
+  const lockup = await keyOutBackground(src("lockup-navy.png"), lockupCrop);
+  await lockup.png().toFile(path.join(outDir, "lockup.png"));
+  console.log("wrote public/images/logo/lockup.png");
 
-  // Icon-only crop with transparent background (for header/footer).
-  await sharp(transparentSource)
-    .extract(iconCrop)
-    .resize({ width: 1200, withoutEnlargement: true })
+  // Badge cropped to a circle (transparent corners) for the favicon.
+  const mask = await circleMask(960, 466);
+  const badgeCircle = await sharp(src("badge.webp"))
+    .ensureAlpha()
+    .composite([{ input: mask, blend: "dest-in" }])
     .png()
-    .toFile(path.join(outDir, "icon-transparent.png"));
-  console.log("wrote public/images/logo/icon-transparent.png");
-
-  // Full lockup (icon + wordmark), trimmed of empty canvas, for the OG image.
-  await sharp(source)
-    .extract({ left: 76, top: 292, width: 1850, height: 1275 })
-    .png()
-    .toFile(path.join(outDir, "full-logo.png"));
-  console.log("wrote public/images/logo/full-logo.png");
-
-  // App icon + apple touch icon, generated from the square icon crop.
-  await sharp(path.join(outDir, "icon-square.png"))
-    .resize(512, 512)
-    .png()
-    .toFile(path.join(root, "app", "icon.png"));
+    .toBuffer();
+  await sharp(badgeCircle).resize(512, 512).png().toFile(path.join(root, "app", "icon.png"));
   console.log("wrote app/icon.png");
 
-  await sharp(path.join(outDir, "icon-square.png"))
+  // Apple touch icon must be opaque: badge on the site's navy.
+  const onNavy = await sharp({
+    create: { width: 960, height: 960, channels: 4, background: siteNavy },
+  })
+    .composite([{ input: badgeCircle }])
+    .png()
+    .toBuffer();
+  await sharp(onNavy)
     .resize(180, 180)
     .png()
     .toFile(path.join(root, "app", "apple-icon.png"));
   console.log("wrote app/apple-icon.png");
 
-  // Open Graph / social share image (1200x630): full logo centered on navy.
-  const logo = await sharp(path.join(outDir, "full-logo.png"))
-    .resize({ height: 560, withoutEnlargement: true })
+  // Open Graph image: navy lockup on its own navy.
+  const og = await sharp(src("lockup-navy.png"))
+    .resize({ height: 630 })
     .toBuffer();
-  const logoMeta = await sharp(logo).metadata();
-  await sharp({
-    create: { width: 1200, height: 630, channels: 4, background: navy },
-  })
-    .composite([
-      {
-        input: logo,
-        left: Math.round((1200 - (logoMeta.width ?? 0)) / 2),
-        top: Math.round((630 - (logoMeta.height ?? 0)) / 2),
-      },
-    ])
+  const meta = await sharp(og).metadata();
+  await sharp({ create: { width: 1200, height: 630, channels: 3, background: bg } })
+    .composite([{ input: og, left: Math.round((1200 - (meta.width ?? 0)) / 2), top: 0 }])
     .jpeg({ quality: 88, mozjpeg: true })
     .toFile(path.join(root, "public", "images", "og-image.jpg"));
   console.log("wrote public/images/og-image.jpg");

@@ -106,9 +106,6 @@ is fully set up, verified, and collecting reviews. Once real reviews exist,
 paste the review link into `trust.googleReviewsUrl` in `config/site.ts`; that
 also switches on the `aggregateRating` structured data.
 
-Also flagged in config: the current phone number (289) is an Ontario area code.
-A local 250/236/778 number would build more trust with Victoria customers.
-
 ## Architecture
 
 - `app/` — routes: home, `/service-areas` (+ one static page per city),
