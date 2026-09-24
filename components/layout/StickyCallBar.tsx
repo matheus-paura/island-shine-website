@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Phone } from "lucide-react";
 import { siteConfig, telUrl } from "@/config/site";
 import { track } from "@/lib/analytics";
@@ -10,6 +12,31 @@ import { track } from "@/lib/analytics";
  * so this never covers content.
  */
 export function StickyCallBar() {
+  const pathname = usePathname();
+  const [formInView, setFormInView] = useState(false);
+
+  // Hide the bar while a quote form section is on screen: the visitor is
+  // already requesting a quote, so "Call now" would only compete with it.
+  useEffect(() => {
+    const sections = document.querySelectorAll("#quote, #area-quote");
+    if (sections.length === 0) {
+      setFormInView(false);
+      return;
+    }
+    const visible = new Set<Element>();
+    const observer = new IntersectionObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      }
+      setFormInView(visible.size > 0);
+    });
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  if (formInView) return null;
+
   return (
     <div
       className="fixed inset-x-0 bottom-0 z-40 border-t border-navy-900/20 pb-[env(safe-area-inset-bottom)] md:hidden"

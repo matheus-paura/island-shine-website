@@ -104,10 +104,15 @@ function ComparisonSlider({ item, priority = false }: { item: GalleryItem; prior
   };
 
   // Portrait photos (roof, deck) are capped by height so they never
-  // dominate the page; landscape photos (windows) fill the available width.
+  // dominate the page, but the width is also clamped to the container: a
+  // height-derived width wider than a phone screen widens the whole page.
+  // Landscape photos (windows) fill the available width.
   const isPortrait = item.aspectRatio < 1;
   const sizeStyle: React.CSSProperties = isPortrait
-    ? { aspectRatio: item.aspectRatio, height: "min(75vh, 640px)" }
+    ? {
+        aspectRatio: item.aspectRatio,
+        width: `min(100%, calc(min(75vh, 640px) * ${item.aspectRatio}))`,
+      }
     : { aspectRatio: item.aspectRatio, width: "100%" };
 
   return (
