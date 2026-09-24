@@ -66,7 +66,7 @@ real data (reviews, Google review link, photos…).
 All images in `public/images/` are generated illustrations (via
 `npm run placeholders`). Before launch, replace them with real photos:
 
-- `hero.jpg` — a strong shot of a clean Victoria home (this is the LCP image; keep it ≤ 300 KB)
+- `work/hero-ocean.jpg` — hero photo (LCP image; keep it ≤ 300 KB), plus the other real job photos in `work/`
 - `before.jpg` / `after.jpg` — one real job, **identical framing** (the interactive slider)
 - `pair-{1,2,3}-{before,after}.jpg` — three more real jobs (thumbnails)
 - `og-image.jpg` — 1200×630 branded share image

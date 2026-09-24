@@ -12,10 +12,9 @@ import { Container } from "@/components/ui/Container";
 export function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="on-dark relative bg-navy-900">
-      {/* TODO: replace with a real before/after shot or a clean Victoria home */}
       <Image
-        src="/images/hero.jpg"
-        alt="Freshly cleaned home exterior on Vancouver Island with clear windows"
+        src="/images/work/hero-ocean.jpg"
+        alt="Island Shine cleaning windows with a water-fed pole at an oceanfront home on Vancouver Island"
         fill
         priority
         sizes="100vw"
@@ -24,7 +23,7 @@ export function Hero() {
       />
       {/* ~65% navy overlay keeps text readable at all sizes */}
       <div
-        className="absolute inset-0 bg-gradient-to-b from-navy-900/80 via-navy-900/65 to-navy-900/80"
+        className="absolute inset-0 bg-gradient-to-b from-navy-900/85 via-navy-900/60 to-navy-900/85"
         aria-hidden="true"
       />
 

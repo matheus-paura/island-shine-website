@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { WorkPhotos } from "@/components/sections/WorkPhotos";
 
 type GalleryItem = {
   slug: string;
@@ -270,6 +271,8 @@ export function BeforeAfter() {
             />
           ))}
         </div>
+
+        <WorkPhotos />
       </Container>
     </section>
   );
