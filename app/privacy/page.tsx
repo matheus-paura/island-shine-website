@@ -53,8 +53,9 @@ export default function PrivacyPage() {
             </h2>
             <p className="mt-2">
               With your consent, we use analytics tools (such as Google Analytics and
-              the Meta Pixel) to understand how visitors use our site and to measure
-              our advertising. These tools set cookies only after you click
+              Microsoft Clarity) to understand how visitors use our site, including
+              anonymized heatmaps and session recordings, and to measure our
+              advertising. These tools set cookies only after you click
               &ldquo;Accept&rdquo; on our cookie banner. If you decline, no analytics
               or advertising cookies are set, and the site works exactly the same.
             </p>

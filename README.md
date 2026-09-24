@@ -84,6 +84,7 @@ changes needed.
 | `NEXT_PUBLIC_GTM_ID` | Google Tag Manager | **Recommended path.** Set only this, then add GA4/Ads/Meta tags inside GTM's UI — no redeploys ever again. |
 | `NEXT_PUBLIC_GA4_ID` | GA4 direct | Only loads when GTM is not set. |
 | `NEXT_PUBLIC_GOOGLE_ADS_ID` + `NEXT_PUBLIC_GOOGLE_ADS_LEAD_LABEL` | Google Ads conversion | Fires on successful quote submissions. |
+| `NEXT_PUBLIC_CLARITY_ID` | Microsoft Clarity | Heatmaps + session recordings. Loads only after the visitor accepts cookies. |
 | `NEXT_PUBLIC_META_PIXEL_ID` | Meta (Facebook) Pixel | Only loads directly when GTM is not set. |
 | `NEXT_PUBLIC_FORM_ENDPOINT` | Quote form target | Formspree / Web3Forms URL or an n8n webhook. Required in production for the form to work. |
 

@@ -5,6 +5,7 @@ const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
 const GA4_ID = process.env.NEXT_PUBLIC_GA4_ID;
 const ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID;
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+const CLARITY_ID = process.env.NEXT_PUBLIC_CLARITY_ID;
 
 const hasGoogle = Boolean(GTM_ID || GA4_ID || ADS_ID);
 // When GTM is present, GA4/Ads/Meta should be configured inside GTM's UI —
@@ -13,7 +14,7 @@ const loadDirectGtag = !GTM_ID && Boolean(GA4_ID || ADS_ID);
 const loadDirectPixel = !GTM_ID && Boolean(PIXEL_ID);
 
 /** True when at least one analytics tool is configured via env vars. */
-export const analyticsConfigured = hasGoogle || Boolean(PIXEL_ID);
+export const analyticsConfigured = hasGoogle || Boolean(PIXEL_ID) || Boolean(CLARITY_ID);
 
 /**
  * Consent Mode v2 defaults — everything denied until the visitor accepts
@@ -82,6 +83,31 @@ fbq('track', 'PageView');
   : "";
 
 /**
+ * Microsoft Clarity (heatmaps + session recordings). Unlike gtag it has no
+ * "denied" load mode we rely on, so the tag is only injected once the visitor
+ * has accepted cookies: immediately on page load when consent was stored
+ * earlier, or via window.__loadClarity() when the banner's Accept is clicked.
+ */
+const clarityInit = CLARITY_ID
+  ? `
+window.__loadClarity = function () {
+  if (window.__clarityLoaded) return;
+  window.__clarityLoaded = true;
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window,document,"clarity","script","${CLARITY_ID}");
+};
+(function () {
+  var stored = null;
+  try { stored = localStorage.getItem('${CONSENT_STORAGE_KEY}'); } catch (e) {}
+  if (stored === 'granted') window.__loadClarity();
+})();
+`
+  : "";
+
+/**
  * Rendered once in the root layout. Every script loads afterInteractive so
  * nothing blocks first paint (protects LCP/INP), and the whole component
  * renders nothing when no analytics env vars are set.
@@ -112,6 +138,11 @@ export function TrackingScripts() {
             {gtagConfig}
           </Script>
         </>
+      )}
+      {CLARITY_ID && (
+        <Script id="clarity-init" strategy="afterInteractive">
+          {clarityInit}
+        </Script>
       )}
       {loadDirectPixel && (
         <>

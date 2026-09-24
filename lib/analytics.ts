@@ -14,6 +14,8 @@ type DataLayerWindow = Window & {
   dataLayer?: Record<string, unknown>[];
   gtag?: (...args: unknown[]) => void;
   fbq?: (...args: unknown[]) => void;
+  clarity?: (...args: unknown[]) => void;
+  __loadClarity?: () => void;
 };
 
 export function track(event: EventName, params: Record<string, unknown> = {}): void {
@@ -89,4 +91,6 @@ export function applyConsent(choice: ConsentChoice): void {
   if (typeof w.fbq === "function") {
     w.fbq("consent", choice === "granted" ? "grant" : "revoke");
   }
+  if (choice === "granted") w.__loadClarity?.();
+  else if (typeof w.clarity === "function") w.clarity("consent", false);
 }
