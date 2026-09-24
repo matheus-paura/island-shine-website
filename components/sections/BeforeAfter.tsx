@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { Expand, GripVertical } from "lucide-react";
+import { useCallback, useRef, useState } from "react";
+import { GripVertical } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
+import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 
 type GalleryItem = {
@@ -12,28 +13,28 @@ type GalleryItem = {
   label: string;
   before: string;
   after: string;
-  /** Small pre-sized "before" shot for the static thumbnail card (unused by FEATURED, which never renders as a thumbnail). */
-  thumb?: string;
+  /** Small pre-sized "before" shot for the selector card. */
+  thumb: string;
   beforeAlt: string;
   afterAlt: string;
   /** width / height, used to size the comparison box without layout shift */
   aspectRatio: number;
 };
 
-// Real job photos — no stock images. Soft wash is the featured comparison
-// (moss removal is the most visually dramatic result); the other two open
-// in a modal on click.
-const FEATURED: GalleryItem = {
-  slug: "soft-wash",
-  label: "Roof Soft Wash",
-  before: "/images/gallery/soft-wash-before.jpg",
-  after: "/images/gallery/soft-wash-after.jpg",
-  beforeAlt: "Roof heavily covered in green moss before soft washing, Victoria BC",
-  afterAlt: "The same roof moss-free after professional soft washing",
-  aspectRatio: 2200 / 2933,
-};
-
+// Real job photos, no stock images. Soft wash is first, so it is the
+// comparison shown when the page loads (moss removal is the most dramatic
+// result); the selector cards below swap which job the slider shows.
 const GALLERY_ITEMS: GalleryItem[] = [
+  {
+    slug: "soft-wash",
+    label: "Roof Soft Wash",
+    before: "/images/gallery/soft-wash-before.jpg",
+    after: "/images/gallery/soft-wash-after.jpg",
+    thumb: "/images/gallery/soft-wash-before-thumb.jpg",
+    beforeAlt: "Roof heavily covered in green moss before soft washing, Victoria BC",
+    afterAlt: "The same roof moss-free after professional soft washing",
+    aspectRatio: 2200 / 2933,
+  },
   {
     slug: "window-cleaning",
     label: "Window Cleaning",
@@ -45,7 +46,7 @@ const GALLERY_ITEMS: GalleryItem[] = [
     aspectRatio: 2200 / 1650,
   },
   {
-    slug: "deck-pressure-wash",
+    slug: "pressure-wash",
     label: "Pressure Wash",
     before: "/images/gallery/driveway-before.jpg",
     after: "/images/gallery/driveway-after.jpg",
@@ -172,90 +173,66 @@ function ComparisonSlider({ item, priority = false }: { item: GalleryItem; prior
   );
 }
 
-/** Static thumbnail (shows the dirty "before" shot) that opens the full slider in a dialog. */
-function GalleryThumbnail({ item, onOpen }: { item: GalleryItem; onOpen: () => void }) {
+/** Selector card: shows the "before" shot; selecting it loads that job into the slider above. */
+function GalleryThumbnail({
+  item,
+  active,
+  onSelect,
+}: {
+  item: GalleryItem;
+  active: boolean;
+  onSelect: () => void;
+}) {
   return (
     <button
       type="button"
-      onClick={onOpen}
-      className="group relative overflow-hidden rounded-card text-left shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:shadow-card-hover"
-      aria-label={`See before and after photos: ${item.label}`}
+      onClick={onSelect}
+      aria-pressed={active}
+      aria-label={`Show before and after: ${item.label}`}
+      className={cn(
+        "group overflow-hidden rounded-card text-left shadow-card outline-2 outline-offset-2 transition-all duration-200",
+        active
+          ? "outline outline-orange-500"
+          : "opacity-75 hover:-translate-y-0.5 hover:opacity-100 hover:shadow-card-hover",
+      )}
     >
-      <div className="relative w-full" style={{ aspectRatio: item.aspectRatio }}>
+      <div className="relative aspect-[4/3] w-full">
         <Image
-          src={item.thumb ?? item.before}
-          alt={item.beforeAlt}
+          src={item.thumb}
+          alt=""
           fill
-          sizes="(max-width: 640px) 100vw, 480px"
+          sizes="(max-width: 640px) 33vw, 200px"
           className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-navy-900/40 text-white opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">
-          <Expand className="h-8 w-8" aria-hidden="true" />
-          <span className="text-sm font-semibold">See before &amp; after</span>
-        </div>
-        <span className="absolute left-3 top-3 rounded-full bg-navy-900/70 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-sand-200">
-          Before
-        </span>
       </div>
-      <div className="bg-navy-900/60 px-4 py-3 text-center font-medium text-sand-100">
+      <div
+        className={cn(
+          "px-2 py-2 text-center text-xs font-medium sm:text-sm",
+          active ? "bg-orange-500 text-white" : "bg-navy-900/60 text-sand-100",
+        )}
+      >
         {item.label}
       </div>
     </button>
   );
 }
 
-/** Modal comparison — opened from a thumbnail; native <dialog> gives focus trap + Esc-to-close for free. */
-function GalleryDialog({
-  item,
-  onClose,
-}: {
-  item: GalleryItem | null;
-  onClose: () => void;
-}) {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (item && !dialog.open) dialog.showModal();
-    if (!item && dialog.open) dialog.close();
-  }, [item]);
-
-  return (
-    <dialog
-      ref={dialogRef}
-      onClose={onClose}
-      onClick={(e) => {
-        if (e.target === dialogRef.current) onClose();
-      }}
-      aria-label={item ? `${item.label}: before and after` : undefined}
-      className="w-full max-w-2xl rounded-card bg-navy-900 p-4 shadow-card-hover backdrop:bg-navy-900/80 backdrop:backdrop-blur-sm md:p-6"
-    >
-      {item && (
-        <>
-          <div className="mb-4 flex items-center justify-between">
-            <h3 className="heading-display text-display-3 text-white">{item.label}</h3>
-            <button
-              type="button"
-              onClick={onClose}
-              className="flex h-10 w-10 items-center justify-center rounded-control text-white/80 transition-colors hover:bg-white/10 hover:text-white"
-              aria-label="Close"
-            >
-              <span aria-hidden="true" className="text-2xl leading-none">
-                &times;
-              </span>
-            </button>
-          </div>
-          <ComparisonSlider item={item} />
-        </>
-      )}
-    </dialog>
-  );
-}
-
 export function BeforeAfter() {
-  const [openSlug, setOpenSlug] = useState<string | null>(null);
-  const openItem = GALLERY_ITEMS.find((i) => i.slug === openSlug) ?? null;
+  const [activeSlug, setActiveSlug] = useState(GALLERY_ITEMS[0].slug);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const active = GALLERY_ITEMS.find((i) => i.slug === activeSlug) ?? GALLERY_ITEMS[0];
+
+  const select = (slug: string) => {
+    setActiveSlug(slug);
+    const el = sliderRef.current;
+    if (!el) return;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Bring the slider back into view when a card below was tapped.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < 80 || rect.bottom > window.innerHeight) {
+      el.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
+    }
+  };
 
   return (
     <section
@@ -273,21 +250,22 @@ export function BeforeAfter() {
         />
 
         <Reveal className="mx-auto mt-12 max-w-2xl">
-          <ComparisonSlider item={FEATURED} />
+          <div ref={sliderRef} aria-live="polite">
+            <ComparisonSlider key={active.slug} item={active} />
+          </div>
         </Reveal>
 
-        <div className="mx-auto mt-8 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="mx-auto mt-6 grid max-w-2xl grid-cols-3 gap-3 sm:gap-4">
           {GALLERY_ITEMS.map((item) => (
             <GalleryThumbnail
               key={item.slug}
               item={item}
-              onOpen={() => setOpenSlug(item.slug)}
+              active={item.slug === active.slug}
+              onSelect={() => select(item.slug)}
             />
           ))}
         </div>
       </Container>
-
-      <GalleryDialog item={openItem} onClose={() => setOpenSlug(null)} />
     </section>
   );
 }

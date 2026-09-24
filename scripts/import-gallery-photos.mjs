@@ -26,11 +26,10 @@ const outDir = path.join(root, "public", "images", "gallery");
 const downloads = "/Users/paura/Downloads";
 
 // `thumb: true` also renders a small `-thumb.jpg` variant — only needed for
-// the two "before" shots that appear as static cards in BeforeAfter.tsx;
-// the featured soft-wash pair and every "after" shot are only ever shown at
-// slider size, never as a small static thumbnail.
+// the three "before" shots used as selector cards in BeforeAfter.tsx; every
+// "after" shot is only ever shown at slider size.
 const jobs = [
-  { src: "soft wash sujo.HEIC", out: "soft-wash-before.jpg", rotate: 90 },
+  { src: "soft wash sujo.HEIC", out: "soft-wash-before.jpg", rotate: 90, thumb: true },
   { src: "soft wash limpo.HEIC", out: "soft-wash-after.jpg", rotate: 90 },
   {
     src: "Window cleaning sujo.HEIC",
