@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import { siteConfig } from "@/config/site";
 import { localBusinessSchema } from "@/lib/schema";
 import { ConsentBanner } from "@/components/analytics/ConsentBanner";
@@ -16,16 +16,33 @@ import { CallButton } from "@/components/layout/CallButton";
 import { JsonLd } from "@/components/seo/JsonLd";
 import "./globals.css";
 
-const barlowCondensed = Barlow_Condensed({
-  subsets: ["latin"],
-  weight: ["600", "700", "800"],
+// Self-hosted (OFL-licensed) so the build never depends on fetching Google
+// Fonts, which fails in some CI environments.
+const barlowCondensed = localFont({
+  src: [
+    {
+      path: "./fonts/barlow-condensed-latin-600-normal.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./fonts/barlow-condensed-latin-700-normal.woff2",
+      weight: "700",
+      style: "normal",
+    },
+    {
+      path: "./fonts/barlow-condensed-latin-800-normal.woff2",
+      weight: "800",
+      style: "normal",
+    },
+  ],
   display: "swap",
   variable: "--font-barlow-condensed",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const inter = localFont({
+  src: "./fonts/inter-latin-wght-normal.woff2",
+  weight: "100 900",
   display: "swap",
   variable: "--font-inter",
 });
