@@ -69,7 +69,7 @@ All images in `public/images/` are generated illustrations (via
 - `work/hero-ocean.jpg` — hero photo (LCP image; keep it ≤ 300 KB), plus the other real job photos in `work/`
 - `before.jpg` / `after.jpg` — one real job, **identical framing** (the interactive slider)
 - `pair-{1,2,3}-{before,after}.jpg` — three more real jobs (thumbnails)
-- `og-image.jpg` — 1200×630 branded share image
+- `og-image-v2.jpg` — 1200×630 branded share image (logo kept in the central safe area)
 
 Real photos only in the gallery — never stock.
 

@@ -83,16 +83,25 @@ async function main() {
     .toFile(path.join(root, "app", "apple-icon.png"));
   console.log("wrote app/apple-icon.png");
 
-  // Open Graph image: navy lockup on its own navy.
-  const og = await sharp(src("lockup-navy.png"))
-    .resize({ height: 630 })
+  // Open Graph image (1200x630): keyed lockup centered on the site navy with
+  // wide margins. Link previews (WhatsApp, iMessage, Facebook) crop to
+  // different ratios, so the logo stays inside a safe central area.
+  const ogLogo = await (await keyOutBackground(src("lockup-navy.png"), lockupCrop))
+    .resize({ width: 700 })
+    .png()
     .toBuffer();
-  const meta = await sharp(og).metadata();
-  await sharp({ create: { width: 1200, height: 630, channels: 3, background: bg } })
-    .composite([{ input: og, left: Math.round((1200 - (meta.width ?? 0)) / 2), top: 0 }])
+  const ogMeta = await sharp(ogLogo).metadata();
+  await sharp({ create: { width: 1200, height: 630, channels: 4, background: siteNavy } })
+    .composite([
+      {
+        input: ogLogo,
+        left: Math.round((1200 - (ogMeta.width ?? 0)) / 2),
+        top: Math.round((630 - (ogMeta.height ?? 0)) / 2),
+      },
+    ])
     .jpeg({ quality: 88, mozjpeg: true })
-    .toFile(path.join(root, "public", "images", "og-image.jpg"));
-  console.log("wrote public/images/og-image.jpg");
+    .toFile(path.join(root, "public", "images", "og-image-v2.jpg"));
+  console.log("wrote public/images/og-image-v2.jpg");
 }
 
 main().catch((err) => {
