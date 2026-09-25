@@ -14,7 +14,7 @@ export function Hero() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/images/work/hero-ocean.jpg"
-        srcSet="/images/work/hero-ocean-800.jpg 800w, /images/work/hero-ocean.jpg 1440w"
+        srcSet="/images/work/hero-ocean-800.jpg 720w, /images/work/hero-ocean.jpg 1440w"
         sizes="100vw"
         width={1440}
         height={1080}

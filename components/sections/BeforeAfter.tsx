@@ -7,6 +7,7 @@ import { Container } from "@/components/ui/Container";
 import { Reveal } from "@/components/ui/Reveal";
 import { cn } from "@/lib/utils";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { LazyMount } from "@/components/ui/LazyMount";
 import { WorkPhotos } from "@/components/sections/WorkPhotos";
 
 type GalleryItem = {
@@ -64,7 +65,13 @@ const GALLERY_ITEMS: GalleryItem[] = [
  * a visible focus ring. Both images share identical dimensions (aspect-ratio
  * box from the source photos), so there is zero CLS.
  */
-function ComparisonSlider({ item, priority = false }: { item: GalleryItem; priority?: boolean }) {
+function ComparisonSlider({
+  item,
+  priority = false,
+}: {
+  item: GalleryItem;
+  priority?: boolean;
+}) {
   const [position, setPosition] = useState(50); // % from the left
   const containerRef = useRef<HTMLDivElement>(null);
   const draggingRef = useRef(false);
@@ -257,7 +264,9 @@ export function BeforeAfter() {
 
         <Reveal className="mx-auto mt-12 max-w-2xl">
           <div ref={sliderRef} aria-live="polite">
-            <ComparisonSlider key={active.slug} item={active} />
+            <LazyMount minHeight={520}>
+              <ComparisonSlider key={active.slug} item={active} />
+            </LazyMount>
           </div>
         </Reveal>
 
@@ -272,7 +281,9 @@ export function BeforeAfter() {
           ))}
         </div>
 
-        <WorkPhotos />
+        <LazyMount minHeight={520}>
+          <WorkPhotos />
+        </LazyMount>
       </Container>
     </section>
   );

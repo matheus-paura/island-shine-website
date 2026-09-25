@@ -132,7 +132,7 @@ export function TrackingScripts() {
           <Script
             id="gtag-js"
             src={`https://www.googletagmanager.com/gtag/js?id=${GA4_ID || ADS_ID}`}
-            strategy="afterInteractive"
+            strategy="lazyOnload"
           />
           <Script id="gtag-config" strategy="afterInteractive">
             {gtagConfig}
