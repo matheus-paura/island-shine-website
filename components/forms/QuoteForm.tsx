@@ -409,7 +409,7 @@ export function QuoteForm() {
       <button
         type="submit"
         disabled={status === "submitting"}
-        className="mt-6 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-control bg-orange-500 px-6 py-3 text-lg font-semibold text-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+        className="mt-6 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-control bg-orange-700 px-6 py-3 text-lg font-semibold text-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-800 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
       >
         {status === "submitting" ? (
           <>

@@ -56,7 +56,7 @@ const jobs = [
 // variants ARE the responsive sizes. 1400px comfortably covers the slider's
 // largest on-screen size (~640px tall) at 2x retina; 480px covers the
 // thumbnail cards (~300-380px wide) the same way.
-const FULL_WIDTH = 1400;
+const FULL_WIDTH = 1000;
 const THUMB_WIDTH = 480;
 
 async function main() {

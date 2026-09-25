@@ -51,7 +51,10 @@ async function main() {
 
   // Header/footer lockup with transparent background.
   const lockup = await keyOutBackground(src("lockup-navy.png"), lockupCrop);
-  await lockup.png().toFile(path.join(outDir, "lockup.png"));
+  await lockup
+    .resize({ width: 640 })
+    .png({ palette: true, quality: 85, colours: 192, effort: 10 })
+    .toFile(path.join(outDir, "lockup.png"));
   console.log("wrote public/images/logo/lockup.png");
 
   // Badge cropped to a circle (transparent corners) for the favicon.
@@ -61,7 +64,10 @@ async function main() {
     .composite([{ input: mask, blend: "dest-in" }])
     .png()
     .toBuffer();
-  await sharp(badgeCircle).resize(512, 512).png().toFile(path.join(root, "app", "icon.png"));
+  await sharp(badgeCircle)
+    .resize(256, 256)
+    .png({ palette: true, quality: 85, colours: 128, effort: 10 })
+    .toFile(path.join(root, "app", "icon.png"));
   console.log("wrote app/icon.png");
 
   // Apple touch icon must be opaque: badge on the site's navy.

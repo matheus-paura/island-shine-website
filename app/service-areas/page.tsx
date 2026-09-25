@@ -72,7 +72,7 @@ export default function ServiceAreasPage() {
                   <span className="mt-3 line-clamp-3 text-sm leading-relaxed text-ink-500">
                     {area.blurb}
                   </span>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange-600">
+                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-orange-700">
                     Cleaning in {area.name}
                     <ArrowRight
                       className="h-4 w-4 transition-transform group-hover:translate-x-0.5"

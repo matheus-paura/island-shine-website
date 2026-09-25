@@ -26,8 +26,8 @@ export function Footer() {
             <Image
               src="/images/logo/lockup.png"
               alt={siteConfig.name}
-              width={868}
-              height={340}
+              width={640}
+              height={251}
               className="h-20 w-auto"
             />
             <p className="mt-3 text-sm leading-relaxed text-sand-200">

@@ -1,23 +1,27 @@
-import Image from "next/image";
 import { siteConfig, telUrl } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 
 /**
  * Hero (Section 7.1) — the LCP element. Navy overlay over the hero photo;
- * image is priority-loaded via next/image.
+ * image is a native fetchpriority=high <img>.
  */
 export function Hero() {
   return (
     <section aria-labelledby="hero-heading" className="on-dark relative bg-navy-900">
-      <Image
+      {/* Native <img>: static export has no image optimizer, so a two-size
+          srcSet keeps phones on the small file. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
         src="/images/work/hero-ocean.jpg"
-        alt="Island Shine cleaning windows with a water-fed pole at an oceanfront home on Vancouver Island"
-        fill
-        priority
+        srcSet="/images/work/hero-ocean-800.jpg 800w, /images/work/hero-ocean.jpg 1440w"
         sizes="100vw"
-        className="object-cover"
-        quality={70}
+        width={1440}
+        height={1080}
+        alt="Island Shine cleaning windows with a water-fed pole at an oceanfront home on Vancouver Island"
+        fetchPriority="high"
+        decoding="async"
+        className="absolute inset-0 h-full w-full object-cover"
       />
       {/* ~65% navy overlay keeps text readable at all sizes */}
       <div

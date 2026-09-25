@@ -58,8 +58,8 @@ export function Header() {
           <Image
             src="/images/logo/lockup.png"
             alt=""
-            width={868}
-            height={340}
+            width={640}
+            height={251}
             className="h-11 w-auto md:h-14"
             priority
           />
@@ -87,7 +87,7 @@ export function Header() {
           <Link
             href="/#quote"
             onClick={() => track("cta_click", { location: "header" })}
-            className="inline-flex min-h-11 cursor-pointer items-center rounded-control bg-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-600"
+            className="inline-flex min-h-11 cursor-pointer items-center rounded-control bg-orange-700 px-5 py-2.5 text-sm font-semibold text-white shadow-card transition-all duration-200 hover:-translate-y-0.5 hover:bg-orange-800"
           >
             Get free quote
           </Link>
@@ -98,7 +98,7 @@ export function Header() {
           <a
             href={telUrl()}
             onClick={() => track("phone_click", { location: "header_mobile" })}
-            className="inline-flex min-h-11 items-center gap-1.5 rounded-control bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-600"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-control bg-orange-700 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-orange-800"
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
             Call
@@ -146,7 +146,7 @@ export function Header() {
               track("cta_click", { location: "mobile_menu" });
               setMenuOpen(false);
             }}
-            className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-control bg-orange-500 px-5 py-3 font-semibold text-white transition-colors hover:bg-orange-600"
+            className="mt-3 inline-flex min-h-11 w-full items-center justify-center rounded-control bg-orange-700 px-5 py-3 font-semibold text-white transition-colors hover:bg-orange-800"
           >
             Get free quote
           </Link>

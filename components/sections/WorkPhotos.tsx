@@ -47,7 +47,7 @@ export function WorkPhotos() {
               sizes="(max-width: 768px) 50vw, 300px"
               className="object-cover"
             />
-            <figcaption className="absolute left-2 top-2 rounded-full bg-orange-500 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest text-white">
+            <figcaption className="absolute left-2 top-2 rounded-full bg-orange-700 px-2.5 py-0.5 text-xs font-semibold uppercase tracking-widest text-white">
               After
             </figcaption>
           </figure>

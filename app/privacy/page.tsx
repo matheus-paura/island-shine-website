@@ -95,7 +95,7 @@ export default function PrivacyPage() {
           </div>
 
           <p>
-            <Link href="/" className="font-semibold text-orange-600 underline">
+            <Link href="/" className="font-semibold text-orange-700 underline">
               ← Back to home
             </Link>
           </p>

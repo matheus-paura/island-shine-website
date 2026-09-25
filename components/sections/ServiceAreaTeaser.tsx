@@ -28,7 +28,7 @@ export function ServiceAreaTeaser() {
               <li key={area.slug}>
                 <Link
                   href={`/service-areas/${area.slug}`}
-                  className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-sand-200 bg-sand-50 px-5 py-2.5 font-medium text-navy-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-orange-500 hover:text-orange-600 hover:shadow-card"
+                  className="inline-flex min-h-11 items-center gap-1.5 rounded-full border border-sand-200 bg-sand-50 px-5 py-2.5 font-medium text-navy-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-orange-500 hover:text-orange-700 hover:shadow-card"
                 >
                   <MapPin className="h-4 w-4 text-orange-500" aria-hidden="true" />
                   {area.name}
@@ -42,7 +42,7 @@ export function ServiceAreaTeaser() {
           Not sure if we cover your area?{" "}
           <a
             href={telUrl()}
-            className="inline-flex items-center gap-1 font-semibold text-navy-700 underline decoration-orange-500 decoration-2 underline-offset-4 transition-colors hover:text-orange-600"
+            className="inline-flex items-center gap-1 font-semibold text-navy-700 underline decoration-orange-500 decoration-2 underline-offset-4 transition-colors hover:text-orange-700"
           >
             <Phone className="h-4 w-4" aria-hidden="true" />
             Call us, we probably do.

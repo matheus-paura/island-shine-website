@@ -46,8 +46,7 @@ export function StickyCallBar() {
       <a
         href={telUrl()}
         onClick={() => track("phone_click", { location: "sticky_bar" })}
-        aria-label={`Call ${siteConfig.shortName} now at ${siteConfig.phone}`}
-        className="flex min-h-14 items-center justify-center gap-2 bg-orange-500 font-semibold text-white transition-colors active:bg-orange-600"
+        className="flex min-h-14 items-center justify-center gap-2 bg-orange-700 font-semibold text-white transition-colors active:bg-orange-800"
       >
         <Phone className="h-5 w-5" aria-hidden="true" />
         Call now · {siteConfig.phone}
